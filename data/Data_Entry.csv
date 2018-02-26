@@ -1,0 +1,100 @@
+Image Index,Finding Labels,Atelectasis,Cardiomegaly,Effusion,Infiltration,Mass,Nodule,Pneumonia,Pneumothorax,Consolidation,Edema,Emphysema,Fibrosis,Pleural_Thickening,Hernia
+00000001_000.png,Cardiomegaly,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+00000001_001.png,Cardiomegaly|Emphysema,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+00000001_002.png,Cardiomegaly|Effusion,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+00000002_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000003_000.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_001.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_002.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_003.png,Hernia|Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+00000003_004.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_005.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_006.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000003_007.png,Hernia,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+00000004_000.png,Mass|Nodule,0,0,0,0,1,1,0,0,0,0,0,0,0,0
+00000005_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_001.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_002.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_003.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_004.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_005.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000005_006.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000005_007.png,Effusion|Infiltration,0,0,1,1,0,0,0,0,0,0,0,0,0,0
+00000006_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000007_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000008_000.png,Cardiomegaly,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+00000008_001.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000008_002.png,Nodule,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+00000009_000.png,Emphysema,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+00000010_000.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000011_000.png,Effusion,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+00000011_001.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000011_002.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000011_003.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000011_004.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000011_005.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000011_006.png,Atelectasis,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000011_007.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000011_008.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000012_000.png,Effusion|Mass,0,0,1,0,1,0,0,0,0,0,0,0,0,0
+00000013_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_001.png,Emphysema|Pneumothorax,0,0,0,0,0,0,0,1,0,0,1,0,0,0
+00000013_002.png,Emphysema|Pneumothorax,0,0,0,0,0,0,0,1,0,0,1,0,0,0
+00000013_003.png,Pleural_Thickening,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+00000013_004.png,Effusion|Emphysema|Infiltration|Pneumothorax,0,0,1,1,0,0,0,1,0,0,1,0,0,0
+00000013_005.png,Emphysema|Infiltration|Pleural_Thickening|Pneumothorax,0,0,0,1,0,0,0,1,0,0,1,0,1,0
+00000013_006.png,Effusion|Infiltration,0,0,1,1,0,0,0,0,0,0,0,0,0,0
+00000013_007.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000013_008.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_009.png,Pleural_Thickening,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+00000013_010.png,Effusion|Pneumonia|Pneumothorax,0,0,1,0,0,0,1,1,0,0,0,0,0,0
+00000013_011.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_012.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_013.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_014.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_015.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_016.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_017.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_018.png,Effusion|Infiltration|Pneumothorax,0,0,1,1,0,0,0,1,0,0,0,0,0,0
+00000013_019.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_020.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_021.png,Effusion,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+00000013_022.png,Infiltration|Mass,0,0,0,1,1,0,0,0,0,0,0,0,0,0
+00000013_023.png,Infiltration|Mass|Pneumothorax,0,0,0,1,1,0,0,1,0,0,0,0,0,0
+00000013_024.png,Mass,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+00000013_025.png,Cardiomegaly|Infiltration|Mass|Nodule,0,1,0,1,1,1,0,0,0,0,0,0,0,0
+00000013_026.png,Cardiomegaly|Emphysema,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+00000013_027.png,Cardiomegaly|Effusion|Emphysema|Mass,0,1,1,0,1,0,0,0,0,0,1,0,0,0
+00000013_028.png,Cardiomegaly|Effusion|Emphysema|Mass,0,1,1,0,1,0,0,0,0,0,1,0,0,0
+00000013_029.png,Cardiomegaly|Effusion|Emphysema|Mass,0,1,1,0,1,0,0,0,0,0,1,0,0,0
+00000013_030.png,Atelectasis|Cardiomegaly|Emphysema|Mass|Pneumothorax,1,1,0,0,1,0,0,1,0,0,1,0,0,0
+00000013_031.png,Emphysema|Mass,0,0,0,0,1,0,0,0,0,0,1,0,0,0
+00000013_032.png,Emphysema|Mass|Pneumothorax,0,0,0,0,1,0,0,1,0,0,1,0,0,0
+00000013_033.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_034.png,Emphysema|Pneumothorax,0,0,0,0,0,0,0,1,0,0,1,0,0,0
+00000013_035.png,Atelectasis|Pneumothorax,1,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_036.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_037.png,Cardiomegaly|Emphysema|Pneumothorax,0,1,0,0,0,0,0,1,0,0,1,0,0,0
+00000013_038.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_039.png,Pneumothorax,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+00000013_040.png,Cardiomegaly|Emphysema|Pneumothorax,0,1,0,0,0,0,0,1,0,0,1,0,0,0
+00000013_041.png,Emphysema,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+00000013_042.png,Emphysema,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+00000013_043.png,Mass|Pleural_Thickening,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+00000013_044.png,Cardiomegaly|Mass|Pleural_Thickening,0,1,0,0,1,0,0,0,0,0,0,0,1,0
+00000013_045.png,Cardiomegaly,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+00000013_046.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000014_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000015_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000016_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000017_000.png,Effusion|Infiltration|Nodule,0,0,1,1,0,1,0,0,0,0,0,0,0,0
+00000017_001.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000017_002.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000018_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+00000019_000.png,Atelectasis|Effusion|Pleural_Thickening,1,0,1,0,0,0,0,0,0,0,0,0,1,0
+00000020_000.png,Pleural_Thickening,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+00000020_001.png,Fibrosis|Infiltration,0,0,0,1,0,0,0,0,0,0,0,1,0,0
+00000020_002.png,Fibrosis|Infiltration|Pleural_Thickening,0,0,0,1,0,0,0,0,0,0,0,1,1,0
+00000021_000.png,Nodule,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+00000021_001.png,Infiltration,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+00000022_000.png,No Finding,0,0,0,0,0,0,0,0,0,0,0,0,0,0
