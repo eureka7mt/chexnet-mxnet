@@ -309,8 +309,8 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             train_loss += sum(lmean)/len(lmean)
             trainer.step(batch_size)
 
-        val_loss = evaluate(net, test_data, ctx[0])
-        val_aucs = AUC(net, test_data, num_classes, ctx[0])
+        val_loss = evaluate_resp(net, test_data, ctx[0])
+        val_aucs = AUC(net, test_data, 1, ctx[0])
         val_aucs_avg = val_aucs.mean()
 
         print("Epoch %d. loss: %.4f, val_loss %.4f" % (
