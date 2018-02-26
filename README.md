@@ -1,5 +1,5 @@
 # ChexNet-Mxnet
-Still under development.This is a re-implementation of [CheXNet](https://stanfordmlgroup.github.io/projects/chexnet/).ChexNet is a deep learning algorithm that can detect and localize 14 kinds of diseases from chest X-ray images.
+Still under development.This is a re-implementation of [CheXNet](https://stanfordmlgroup.github.io/projects/chexnet/),which is a deep learning algorithm that can detect and localize 14 kinds of diseases from chest X-ray images.
 
 <img width="450" height="450" src="https://stanfordmlgroup.github.io/projects/chexnet/img/chest-cam.png" alt="CheXNet from Stanford ML Group"/>
 
