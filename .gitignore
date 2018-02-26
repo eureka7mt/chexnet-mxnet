@@ -1,0 +1,62 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+ipch/
+obj/
+[Bb]in
+Tasks
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+Target/
+#Subversion files
+.svn
+
+#Office temp Files
+~$*
+
+#Editor temp files 
+*.swp
+*.orig
+
+# Project Ignore
+db/liquibase.properties
+db/changelog/diff-changelog.xml
+db/diff.bat
+ClientBin/
+Generated_Code/
+logs/
+Setup/*.exe
+PluginZips/
+*.Publish.xml
+*.pubxml
