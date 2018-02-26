@@ -4,7 +4,7 @@ Still under development.This is a re-implementation of [CheXNet](https://stanfor
 <img width="450" height="450" src="https://stanfordmlgroup.github.io/projects/chexnet/img/chest-cam.png" alt="CheXNet from Stanford ML Group"/>
 
 ## CAM
-It's a weakly supervised localization.Get more infomation from [this arxiv page](https://arxiv.org/pdf/1610.02391.pdf)
+It's a weakly supervised localization.Get more information from [this arxiv page](https://arxiv.org/pdf/1610.02391.pdf)
 
 ## Prerequisites
 1. Python 3.5
