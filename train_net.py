@@ -147,8 +147,6 @@ def train_net(network, train_csv, num_classes, batch_size,
             Y[i,j] = dfv[j+2]
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, random_state=8)
-    w_train = 1.-np.sum(Y_train)/len(Y_train)
-    w_val=1.-np.sum(Y_valid)/len(Y_valid)
 
     # fine-tune net
     pretrained_net = getattr(models, network)(pretrained=True)
@@ -264,6 +262,8 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
         Y[i,0] = dfv[identifier+2]
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, random_state=8)
+    w_train = 1.-np.sum(Y_train)/len(Y_train)
+    w_val=1.-np.sum(Y_valid)/len(Y_valid)
 
     # fine-tune net
     pretrained_net = getattr(models,network)(pretrained=True)
