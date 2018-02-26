@@ -1,10 +1,13 @@
 # ChexNet-Mxnet
-Still under development.This is a re-implementation of [CheXNet](https://stanfordmlgroup.github.io/projects/chexnet/).
+Still under development.This is a re-implementation of [CheXNet](https://stanfordmlgroup.github.io/projects/chexnet/).ChexNet is a deep learning algorithm that can detect and localize 14 kinds of diseases from chest X-ray images.
 
 <img width="450" height="450" src="https://stanfordmlgroup.github.io/projects/chexnet/img/chest-cam.png" alt="CheXNet from Stanford ML Group"/>
 
+## CAM
+It's a weakly supervised localization.Get more infomation from [this arxiv page](https://arxiv.org/pdf/1610.02391.pdf)
+
 ## Prerequisites
-1. Python 3
+1. Python 3.5
 2. [Mxnet](https://mxnet.apache.org/)
 3. Numpy
 4. Pandas
