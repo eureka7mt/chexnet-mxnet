@@ -315,11 +315,9 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
 
         print("Epoch %d. loss: %.4f, val_loss %.4f" % (
             epoch, train_loss/steps, val_loss))
-        print("The average AUROC is %.3f%%" %(val_aucs_avg))
+        print('The AUROC of {} is {}'.format(class_names[identifier], val_aucs_avg))
 
         if val_aucs_avg >= best_auc_avg:
             best_auc_avg = val_aucs_avg
-            net.features.save_params('./model/densenet_cam_f_Epoch%d.params'%epoch)
-            net.output.save_params('./model/densenet_cam_o_Epoch%d.params'%epoch)
-            for i in range(num_classes):
-                print('The AUROC of {} is {}'.format(class_names[i], val_aucs[i]))
+            net.features.save_params('./model/%s_f_Epoch%d.params'%(class_names[identifier], epoch))
+            net.output.save_params('./model/%s_o_Epoch%d.params'%(class_names[identifier], epoch))
