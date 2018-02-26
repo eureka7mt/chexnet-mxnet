@@ -85,13 +85,13 @@ def AUC(net,data_iter,n_classes,ctx):
     AUCS = AUC.sum(axis=0)/m
     return  AUCS
 
-def evaluate_resp(net,data_iter,ctx):
+def evaluate_resp(net, data_iter, weight,ctx):
     loss,n = 0., 0.
     n = len(data_iter)
     for data, label in data_iter:
         data, label = data.as_in_context(ctx), label.as_in_context(ctx)
         output = net(data)
-        loss += nd.mean(wsigmoid_cross_entropy(output,label)).asscalar()
+        loss += nd.mean(wsigmoid_cross_entropy(output, label, weight)).asscalar()
     return loss/n
 
 def train_net(network, train_csv, num_classes, batch_size,
@@ -147,6 +147,8 @@ def train_net(network, train_csv, num_classes, batch_size,
             Y[i,j] = dfv[j+2]
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, random_state=8)
+    w_train = 1.-np.sum(Y_train)/len(Y_train)
+    w_val=1.-np.sum(Y_valid)/len(Y_valid)
 
     # fine-tune net
     pretrained_net = getattr(models, network)(pretrained=True)
@@ -301,7 +303,7 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             label_list = gluon.utils.split_and_load(label, ctx)
 
             with autograd.record():
-                losses = [loss(net(x),y) for x,y in zip(data_list,label_list)]
+                losses = [loss(net(x), y, w_train) for x,y in zip(data_list,label_list)]
             for l in losses:
                 l.backward()
             
@@ -309,7 +311,7 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             train_loss += sum(lmean)/len(lmean)
             trainer.step(batch_size)
 
-        val_loss = evaluate_resp(net, test_data, ctx[0])
+        val_loss = evaluate_resp(net, test_data, w_val, ctx[0])
         val_aucs = AUC(net, test_data, 1, ctx[0])
         val_aucs_avg = val_aucs.mean()
 
