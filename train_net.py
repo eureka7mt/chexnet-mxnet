@@ -86,13 +86,29 @@ def AUC(net,data_iter,n_classes,ctx):
     return  AUCS
 
 def evaluate_resp(net, data_iter, weight, ctx):
-    loss,n = 0., 0.
+    loss, acc, n= 0., 0., 0.
     n = len(data_iter)
     for data, label in data_iter:
         data, label = data.as_in_context(ctx), label.as_in_context(ctx)
         output = net(data)
+        acc_list=compute_acc(output,label)
+        acc_list_avg=np.array(acc_list).mean()
+        acc+=acc_list_avg
         loss += nd.mean(wsigmoid_cross_entropy(output, label, weight)).asscalar()
-    return loss/n
+    return loss/n, acc/n
+
+def compute_acc(output,label):
+    acc = []
+    row = output.shape[0]
+    label_np=label.asnumpy()
+    output_np=output.asnumpy()
+    for i in range(row):
+        if round(output_np[i,0]) == label_np[i,0]:
+            acc.append(1.)
+        else:
+            acc.append(0.)
+    
+    return acc
 
 def train_net(network, train_csv, num_classes, batch_size,
               data_shape, ctx, epochs, learning_rate,
@@ -280,6 +296,7 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
     net.hybridize()
     loss = wSigmoidBinaryCrossEntropyLoss(from_sigmoid=True)
     best_auc_avg = 0
+    best_acc = 0
 
     # optimizer
     opt, opt_params = get_optimizer_params(optimizer=optimizer, learning_rate=learning_rate, momentum=momentum,
@@ -311,15 +328,20 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             train_loss += sum(lmean)/len(lmean)
             trainer.step(batch_size)
 
-        val_loss = evaluate_resp(net, test_data, w_val, ctx[0])
+        val_loss, val_acc = evaluate_resp(net, test_data, w_val, ctx[0])
         val_aucs = AUC(net, test_data, 1, ctx[0])
         val_aucs_avg = val_aucs.mean()
 
-        print("Epoch %d. loss: %.4f, val_loss %.4f" % (
-            epoch, train_loss/steps, val_loss))
+        print("Epoch %d. loss: %.4f, val_loss %.4f, val_acc %.2f%%" % (
+            epoch, train_loss/steps, val_loss, val_acc*100))
         print('The AUROC of {} is {}'.format(class_names[identifier], val_aucs_avg))
 
         if val_aucs_avg >= best_auc_avg:
             best_auc_avg = val_aucs_avg
             net.features.save_params('./model/%s_f_Epoch%d.params'%(class_names[identifier], epoch))
             net.output.save_params('./model/%s_o_Epoch%d.params'%(class_names[identifier], epoch))
+
+        if val_acc >= best_acc:
+            best_acc = val_acc
+            net.features.save_params('./model/%s_f2_Epoch%d.params'%(class_names[identifier], epoch))
+            net.output.save_params('./model/%s_o2_Epoch%d.params'%(class_names[identifier], epoch))
