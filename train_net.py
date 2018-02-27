@@ -85,13 +85,13 @@ def AUC(net,data_iter,n_classes,ctx):
     AUCS = AUC.sum(axis=0)/m
     return  AUCS
 
-def evaluate_resp(net,data_iter,ctx):
+def evaluate_resp(net, data_iter, weight, ctx):
     loss,n = 0., 0.
     n = len(data_iter)
     for data, label in data_iter:
         data, label = data.as_in_context(ctx), label.as_in_context(ctx)
         output = net(data)
-        loss += nd.mean(wsigmoid_cross_entropy(output,label)).asscalar()
+        loss += nd.mean(wsigmoid_cross_entropy(output, label, weight)).asscalar()
     return loss/n
 
 def train_net(network, train_csv, num_classes, batch_size,
@@ -262,6 +262,8 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
         Y[i,0] = dfv[identifier+2]
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, random_state=8)
+    w_train = 1.-np.sum(Y_train)/len(Y_train)
+    w_val=1.-np.sum(Y_valid)/len(Y_valid)
 
     # fine-tune net
     pretrained_net = getattr(models,network)(pretrained=True)
@@ -301,7 +303,7 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             label_list = gluon.utils.split_and_load(label, ctx)
 
             with autograd.record():
-                losses = [loss(net(x),y) for x,y in zip(data_list,label_list)]
+                losses = [loss(net(x), y, w_train) for x,y in zip(data_list,label_list)]
             for l in losses:
                 l.backward()
             
@@ -309,17 +311,15 @@ def train_net_resp(network, train_csv, num_classes, batch_size,
             train_loss += sum(lmean)/len(lmean)
             trainer.step(batch_size)
 
-        val_loss = evaluate(net, test_data, ctx[0])
-        val_aucs = AUC(net, test_data, num_classes, ctx[0])
+        val_loss = evaluate_resp(net, test_data, w_val, ctx[0])
+        val_aucs = AUC(net, test_data, 1, ctx[0])
         val_aucs_avg = val_aucs.mean()
 
         print("Epoch %d. loss: %.4f, val_loss %.4f" % (
             epoch, train_loss/steps, val_loss))
-        print("The average AUROC is %.3f%%" %(val_aucs_avg))
+        print('The AUROC of {} is {}'.format(class_names[identifier], val_aucs_avg))
 
         if val_aucs_avg >= best_auc_avg:
             best_auc_avg = val_aucs_avg
-            net.features.save_params('./model/densenet_cam_f_Epoch%d.params'%epoch)
-            net.output.save_params('./model/densenet_cam_o_Epoch%d.params'%epoch)
-            for i in range(num_classes):
-                print('The AUROC of {} is {}'.format(class_names[i], val_aucs[i]))
+            net.features.save_params('./model/%s_f_Epoch%d.params'%(class_names[identifier], epoch))
+            net.output.save_params('./model/%s_o_Epoch%d.params'%(class_names[identifier], epoch))
