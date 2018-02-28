@@ -3,6 +3,7 @@ import mxnet as mx
 import os
 import sys
 from cam import Cam
+from cam import Cam_resp
 
 
 def parse_args():
@@ -20,13 +21,15 @@ def parse_args():
                         help='GPU device id to detect with')
     parser.add_argument('--data-shape', dest='data_shape', type=int, default=224,
                         help='set image shape')
-    parser.add_argument('--thresh', dest='thresh', type=float, default=0.4,
-                        help='object visualize score threshold, default 0.4')
+    parser.add_argument('--thresh', dest='thresh', type=float, default=0.5,
+                        help='object visualize score threshold, default 0.5')
     parser.add_argument('--num-class', dest='num_class', type=int, default=14,
                         help='number of classes')
     parser.add_argument('--class-names', dest='class_names', type=str,
                         default='Atelectasis, Cardiomegaly, Effusion, Infiltration, Mass, Nodule, Pneumonia, Pneumothorax, Consolidation, Edema, Emphysema, Fibrosis, Pleural_Thickening, Hernia',
                         help='string of comma separated names, or text filename')
+    parser.add_argument('--identifier', dest='identifier', type=int, default=-1,
+                        help='Use combined model if it equals -1.Use all models if it equals 1')
     args = parser.parse_args()
     return args
 
@@ -59,5 +62,8 @@ if __name__ == '__main__':
     network = args.network
     class_names = parse_class_names(args.class_names)
 
-    # run 
-    Cam(network, image_list, args.model_path, ctx, args.data_shape, class_names, args.thresh,num_class=args.num_class)
+    # run
+    if args.identifier == -1:
+        Cam(network, image_list, args.model_path, ctx, args.data_shape, class_names, args.thresh, num_class=args.num_class)
+    elif args.identifier == 1:
+        Cam_resp(network, image_list, args.model_path, ctx, args.data_shape, class_names, args.thresh, num_class=args.num_class)

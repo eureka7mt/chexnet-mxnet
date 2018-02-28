@@ -25,7 +25,7 @@ def forward(x, net, ctx, con):
     predictions = net.output(x)
     return predictions, cams
 
-def Cam(network, image, model_path, ctx, data_shape, class_names, thresh,num_class=14):
+def Cam(network, image, model_path, ctx, data_shape, class_names, thresh, num_class=14):
     net = getattr(models,network)(classes=num_class)
 
     with net.name_scope(): 
@@ -42,14 +42,14 @@ def Cam(network, image, model_path, ctx, data_shape, class_names, thresh,num_cla
     params = net.output.collect_params()
     class_weights = params[list(params.keys())[0]]
 
-    c=nn.Conv2D(channels=num_class,kernel_size=1)
+    c=nn.Conv2D(channels=num_class, kernel_size=1)
     c.initialize(ctx=ctx)
-    test = nd.random.normal(shape=(32,1024, 7, 7), ctx=ctx)
+    test = nd.random.normal(shape=(32, 1024, 7, 7), ctx=ctx)
     c(test)
     c.weight.set_data(class_weights.data().reshape((num_class,1024,1,1)))
      
     n = len(image)
-    X = np.zeros((n,3,data_shape,data_shape),dtype=np.float32)
+    X = np.zeros((n, 3, data_shape, data_shape),dtype=np.float32)
 
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
@@ -58,7 +58,7 @@ def Cam(network, image, model_path, ctx, data_shape, class_names, thresh,num_cla
         img = cv2.imread(image[i])
         X[i] = ((cv2.resize(img, (data_shape, data_shape))[:,:,::-1] / 255.0 - mean) / std).transpose((2, 0, 1))
     
-    predictions, cams = forward(X[np.arange(n)],net,ctx,c)
+    predictions, cams = forward(X[np.arange(n)], net, ctx, c)
     predictions = predictions.asnumpy()
     cams = cams.asnumpy()
 
@@ -77,4 +77,57 @@ def Cam(network, image, model_path, ctx, data_shape, class_names, thresh,num_cla
         else:
             print('No finding in:%s'%image[i])
     cv2.waitKey (0)  
-    cv2.destroyAllWindows()  
+    cv2.destroyAllWindows()
+
+def Cam_resp(network, image, model_path, ctx, data_shape, class_names, thresh, num_class=14):
+    for i in range(num_class):
+        net = getattr(models,network)(classes=1)
+
+        with net.name_scope(): 
+            net.output = nn.Dense(1, activation="sigmoid")
+        net.output.initialize(init.Xavier())
+
+        params_features = os.path.join(model_path,'%s_f.params'%class_names[i])
+        params_output = os.path.join(model_path,'%s_o.params'%class_names[i])
+        net.features.load_params(params_features, ctx=ctx)
+        net.output.load_params(params_output,ctx=mx.cpu(0))
+        net.collect_params().reset_ctx(ctx)
+        net.hybridize()
+
+        params = net.output.collect_params()
+        class_weights = params[list(params.keys())[0]]
+
+        c=nn.Conv2D(channels=1, kernel_size=1)
+        c.initialize(ctx=ctx)
+        test = nd.random.normal(shape=(8, 1024, 7, 7),ctx=ctx)
+        c(test)
+        c.weight.set_data(class_weights.data().reshape((1,1024,1,1)))
+
+        n = len(image)
+        X = np.zeros((n, 3, data_shape, data_shape),dtype=np.float32)
+
+        mean = np.array([0.485, 0.456, 0.406])
+        std = np.array([0.229, 0.224, 0.225])
+
+        for j in range(n):
+            img = cv2.imread(image[j])
+            X[j] = ((cv2.resize(img, (data_shape, data_shape))[:,:,::-1] / 255.0 - mean) / std).transpose((2, 0, 1))
+
+        predictions, cams = forward(X[np.arange(n)], net, ctx, c)
+        predictions = predictions.asnumpy()
+        cams = cams.asnumpy()
+
+        for j in range(n):
+            img = cv2.imread(image[j])
+            X[j] = ((cv2.resize(img, (data_shape, data_shape))[:,:,::-1] / 255.0 - mean) / std).transpose((2, 0, 1))
+            if predictions[j,0] > thresh:
+                cam = cams[j][0]
+                cam -= cam.min()
+                cam /= cam.max()
+                cam = cv2.resize((cam * 255).astype(np.uint8), (img.shape[1], img.shape[0]))
+                heatmap = cv2.applyColorMap(cam, cv2.COLORMAP_JET)
+                out = cv2.addWeighted(img, 0.8, heatmap, 0.4, 0)
+                cv2.imshow('Image:%s pred:%s'%(image[j],class_names[i]),out)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
